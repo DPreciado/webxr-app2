@@ -10,13 +10,12 @@ renderer.setPixelRatio(wndow.devicePixelRatio);
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.xr.enabled = true;
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+container.appendChild( renderer.domElement );
 
 const onWindowResize = ()=>{
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
+  
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
@@ -64,5 +63,4 @@ function animate() {
     renderer.render( scene, camera)
   });
 }
-
 animate();
