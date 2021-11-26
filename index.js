@@ -5,8 +5,7 @@ import { VRButton } from './js/examples/jsm/webxr/VRButton.js';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-const renderer = new THREE.WebGLRenderer();
-renderer = new THREE.WebGL1Renderer( { antialias: true } );
+renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio(wndow.devicePixelRatio);
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.outputEncoding = THREE.sRGBEncoding;
@@ -14,18 +13,16 @@ renderer.xr.enabled = true;
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-window.addEventListener( 'resize', onWindowResize);
-
-document.body.appendChild( VRButton.createButton( renderer ) );
-
-function onWindowResize() {
-
+const onWindowResize = ()=>{
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
   renderer.setSize( window.innerWidth, window.innerHeight );
-
 }
+
+window.addEventListener( 'resize', onWindowResize);
+
+document.body.appendChild( VRButton.createButton( renderer ) );
 
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -54,19 +51,18 @@ loader.load( './models/escena.gltf',
 
 });
 
-camera.position.z = 5;
-camera.position.y = 20;
-camera.rotation.y = 185.1;
+// camera.position.z = 5;
+// camera.position.y = 20;
+// camera.rotation.y = 185.1;
 
 function animate() {
   //cube.rotation.x += 0.01;
   //cube.rotation.y += 0.01;
 	// requestAnimationFrame( animate );
 	// renderer.render( scene, camera );
-  renderer.setAnimationLoop( render );
+  renderer.setAnimationLoop(()=>{
+    renderer.render( scene, camera)
+  });
 }
 
-function render(){
-  renderer.render( scene, camera);
-}
 animate();
